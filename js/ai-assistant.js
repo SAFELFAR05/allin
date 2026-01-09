@@ -214,7 +214,7 @@
         aiTyping.style.display = 'block';
 
         try {
-            const response = await fetch(`https://aioo.elfar.my.id/api/proxy?prompt=${encodeURIComponent(text)}&logic=kamu adalah AI asisten untuk website AIODownloader. Website ini adalah layanan download video gratis dari berbagai platform seperti TikTok, Instagram, Facebook, dan lainnya.`);
+            const response = await fetch(`https://aioo.elfar.my.id/api/proxy?prompt=${encodeURIComponent(text)}&logic=Kamu adalah AI asisten untuk website AIODownloader. Pembuat website ini adalah ELFAR.DEV (elfar.my.id). Website ini adalah layanan download video gratis dari berbagai platform seperti TikTok, Instagram, Facebook, dan lainnya. Jawablah hanya pertanyaan yang berkaitan dengan website ini, cara download video, atau platform yang didukung. Jangan menjawab pertanyaan di luar topik tersebut.`);
             const data = await response.json();
             
             aiTyping.style.display = 'none';
