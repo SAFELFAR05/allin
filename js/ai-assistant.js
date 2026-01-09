@@ -224,9 +224,35 @@
     function addMessage(text, sender) {
         const msg = document.createElement('div');
         msg.className = `ai-message ${sender}`;
-        msg.innerHTML = formatMessage(text);
-        aiMessages.appendChild(msg);
-        aiMessages.scrollTop = aiMessages.scrollHeight;
+        
+        if (sender === 'bot') {
+            msg.innerHTML = '';
+            aiMessages.appendChild(msg);
+            
+            let i = 0;
+            const formatted = formatMessage(text);
+            // We need to type the raw text but show formatted
+            // Simplified typing effect: reveal chunks of the formatted HTML
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = formatted;
+            const nodes = Array.from(tempDiv.childNodes);
+            
+            let nodeIndex = 0;
+            function typeNode() {
+                if (nodeIndex < nodes.length) {
+                    const node = nodes[nodeIndex].cloneNode(true);
+                    msg.appendChild(node);
+                    nodeIndex++;
+                    aiMessages.scrollTop = aiMessages.scrollHeight;
+                    setTimeout(typeNode, 30);
+                }
+            }
+            typeNode();
+        } else {
+            msg.innerHTML = formatMessage(text);
+            aiMessages.appendChild(msg);
+            aiMessages.scrollTop = aiMessages.scrollHeight;
+        }
 
         // Update cache
         const messages = JSON.parse(localStorage.getItem('ai_messages') || '[]');
