@@ -48,7 +48,25 @@ async function fetchVideoData(url) {
             throw new Error(data.message || "No data found for this link.");
         }
 
-        displayResults(data.data);
+        // Add to recent downloads
+        const result = data.data;
+        const recent = JSON.parse(localStorage.getItem('recent_downloads') || '[]');
+        const newItem = {
+            originalUrl: url,
+            title: result.title,
+            thumbnail: result.thumbnail,
+            source: result.source,
+            timestamp: Date.now()
+        };
+        
+        // Remove duplicate and add to start
+        const filtered = recent.filter(item => item.originalUrl !== url);
+        filtered.unshift(newItem);
+        if (filtered.length > 10) filtered.pop();
+        localStorage.setItem('recent_downloads', JSON.stringify(filtered));
+        window.dispatchEvent(new Event('recentUpdate'));
+
+        displayResults(result);
     } catch (error) {
         showError(error.message);
     }

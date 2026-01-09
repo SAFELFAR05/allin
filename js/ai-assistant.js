@@ -106,9 +106,10 @@
             background: rgba(255,255,255,0.05);
             border: 1px solid rgba(255,255,255,0.1);
             border-radius: 20px;
-            padding: 8px 15px;
+            padding: 10px 15px;
             color: white;
             outline: none;
+            font-size: 16px; /* Prevent mobile zoom */
         }
         .ai-chat-input button {
             background: #6366f1;
@@ -171,6 +172,19 @@
     const aiMessages = document.getElementById('aiMessages');
     const aiTyping = document.getElementById('aiTyping');
 
+    // Load cached messages
+    const cachedMessages = JSON.parse(localStorage.getItem('ai_messages') || '[]');
+    if (cachedMessages.length > 0) {
+        aiMessages.innerHTML = '';
+        cachedMessages.forEach(msg => {
+            const msgEl = document.createElement('div');
+            msgEl.className = `ai-message ${msg.sender}`;
+            msgEl.textContent = msg.text;
+            aiMessages.appendChild(msgEl);
+        });
+        aiMessages.scrollTop = aiMessages.scrollHeight;
+    }
+
     toggleBtn.onclick = () => chatWindow.classList.toggle('show');
     closeBtn.onclick = () => chatWindow.classList.remove('show');
 
@@ -180,6 +194,13 @@
         msg.textContent = text;
         aiMessages.appendChild(msg);
         aiMessages.scrollTop = aiMessages.scrollHeight;
+
+        // Update cache
+        const messages = JSON.parse(localStorage.getItem('ai_messages') || '[]');
+        messages.push({ text, sender });
+        // Keep only last 50 messages
+        if (messages.length > 50) messages.shift();
+        localStorage.setItem('ai_messages', JSON.stringify(messages));
     }
 
     aiForm.onsubmit = async (e) => {
