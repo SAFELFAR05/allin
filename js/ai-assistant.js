@@ -197,7 +197,9 @@
             const data = await response.json();
             
             aiTyping.style.display = 'none';
-            if (data && data.data) {
+            if (data && data.success && data.message) {
+                addMessage(data.message, 'bot');
+            } else if (data && data.data) {
                 addMessage(data.data, 'bot');
             } else {
                 addMessage('Maaf, saya sedang mengalami gangguan. Coba lagi nanti.', 'bot');
