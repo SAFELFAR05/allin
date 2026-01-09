@@ -73,13 +73,21 @@ async function fetchVideoData(url) {
 }
 
 async function forceDownloadBlob(url, filename = "download.mp4") {
-    try {
-        const loadingOverlay = document.createElement('div');
-        loadingOverlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);display:flex;align-items:center;justify-content:center;z-index:10000;color:white;flex-direction:column;gap:15px;';
-        loadingOverlay.innerHTML = '<div class="spinner-ring" style="width:50px;height:50px;border:5px solid #22c55e;border-top-color:transparent;border-radius:50%;animation:spin 1s linear infinite;"></div><span>Downloading to device...</span>';
-        document.body.appendChild(loadingOverlay);
+    const loadingOverlay = document.createElement('div');
+    loadingOverlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);display:flex;align-items:center;justify-content:center;z-index:10000;color:white;flex-direction:column;gap:15px;';
+    loadingOverlay.innerHTML = '<div class="spinner-ring" style="width:50px;height:50px;border:5px solid #22c55e;border-top-color:transparent;border-radius:50%;animation:spin 1s linear infinite;"></div><span>Downloading to device...</span>';
+    document.body.appendChild(loadingOverlay);
 
-        const res = await fetch(url);
+    try {
+        // Use a proxy for fetch to bypass CORS if possible, or try direct fetch first
+        const res = await fetch(url, { mode: 'cors' }).catch(() => fetch(url, { mode: 'no-cors' }));
+        
+        // If no-cors is triggered, blob() might fail or be empty due to opaque response
+        // In that case, we have to fallback to tab
+        if (res.type === 'opaque') {
+            throw new Error('CORS restriction');
+        }
+
         const blob = await res.blob();
         const blobURL = URL.createObjectURL(blob);
 
@@ -93,9 +101,15 @@ async function forceDownloadBlob(url, filename = "download.mp4") {
         URL.revokeObjectURL(blobURL);
         document.body.removeChild(loadingOverlay);
     } catch (error) {
-        console.error("Download failed:", error);
-        alert("Download failed. Opening in new tab instead.");
-        window.open(url, '_blank');
+        console.warn("Direct blob download failed, trying indirect method:", error);
+        document.body.removeChild(loadingOverlay);
+        
+        // Fallback: Try to open in a hidden iframe or just a new tab if everything fails
+        const a = document.createElement("a");
+        a.href = url;
+        a.target = "_blank";
+        a.download = filename;
+        a.click();
     }
 }
 
