@@ -95,6 +95,11 @@
             border-radius: 15px;
             font-size: 14px;
             line-height: 1.4;
+            animation: fadeIn 0.3s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         .ai-message.user {
             align-self: flex-end;
@@ -183,7 +188,6 @@
             <div class="ai-chat-messages" id="aiMessages">
                 <div class="ai-message bot">Halo! Saya AI asisten AIODownloader. Ada yang bisa saya bantu?</div>
             </div>
-            <div class="ai-typing" id="aiTyping" style="padding: 0 20px 10px;">AI sedang mengetik...</div>
             <form class="ai-chat-input" id="aiForm">
                 <input type="text" id="aiInput" placeholder="Tanya sesuatu..." autocomplete="off">
                 <button type="submit">
@@ -208,7 +212,6 @@
     const aiForm = document.getElementById('aiForm');
     const aiInput = document.getElementById('aiInput');
     const aiMessages = document.getElementById('aiMessages');
-    const aiTyping = document.getElementById('aiTyping');
 
     function formatMessage(text) {
         // Simple Markdown-like formatting for bold (*** or **) and newlines
@@ -311,14 +314,11 @@
 
         aiInput.value = '';
         addMessage(text, 'user');
-        
-        aiTyping.style.display = 'block';
 
         try {
             const response = await fetch(`https://aioo.elfar.my.id/api/proxy?prompt=${encodeURIComponent(text)}&logic=Kamu adalah AI asisten untuk website AIODownloader. Pembuat website ini adalah ELFAR.DEV (https://elfar.my.id). Website ini mendukung download dari 50+ platform berikut secara lengkap: TikTok (tanpa watermark), Douyin, CapCut, Threads, Instagram (Reels/Video/Photo/Story), Facebook, YouTube (Video/Shorts/Audio), Twitter (X), Spotify (Track/Playlist/Album), Pinterest, Reddit, LinkedIn, Snapchat, Bilibili, Dailymotion, Sharechat, Likee, Tumblr, Hipi, Telegram, GetStickerPack, Bitchute, Febspot, 9GAG, OK.ru, Rumble, Streamable, TED, SohuTV, XVideos, XNXX, Xiaohongshu, Ixigua, Weibo, Miaopai, Meipai, Xiaoying, National Video, Yingke, Sina, VK Video, SoundCloud, Mixcloud, Bandcamp, dan ZingMP3. Jawablah hanya pertanyaan yang berkaitan dengan platform ini. Jika user bertanya platform apa saja yang didukung, sebutkan semua yang ada di daftar ini secara lengkap.`);
             const data = await response.json();
             
-            aiTyping.style.display = 'none';
             if (data && data.success && data.message) {
                 addMessage(data.message, 'bot');
             } else if (data && data.data) {
@@ -327,7 +327,6 @@
                 addMessage('Maaf, saya sedang mengalami gangguan. Coba lagi nanti.', 'bot');
             }
         } catch (error) {
-            aiTyping.style.display = 'none';
             addMessage('Gagal terhubung ke AI. Pastikan koneksi internet stabil.', 'bot');
         }
     };
