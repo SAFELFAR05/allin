@@ -79,14 +79,11 @@ async function forceDownloadBlob(url, filename = "download.mp4") {
     document.body.appendChild(loadingOverlay);
 
     try {
-        // Use a proxy for fetch to bypass CORS if possible, or try direct fetch first
-        const res = await fetch(url, { mode: 'cors' }).catch(() => fetch(url, { mode: 'no-cors' }));
+        // Try to use a CORS proxy to bypass restrictions
+        const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`;
         
-        // If no-cors is triggered, blob() might fail or be empty due to opaque response
-        // In that case, we have to fallback to tab
-        if (res.type === 'opaque') {
-            throw new Error('CORS restriction');
-        }
+        const res = await fetch(proxyUrl);
+        if (!res.ok) throw new Error('Proxy fetch failed');
 
         const blob = await res.blob();
         const blobURL = URL.createObjectURL(blob);
@@ -101,15 +98,32 @@ async function forceDownloadBlob(url, filename = "download.mp4") {
         URL.revokeObjectURL(blobURL);
         document.body.removeChild(loadingOverlay);
     } catch (error) {
-        console.warn("Direct blob download failed, trying indirect method:", error);
-        document.body.removeChild(loadingOverlay);
+        console.warn("Proxy download failed, trying direct fetch:", error);
         
-        // Fallback: Try to open in a hidden iframe or just a new tab if everything fails
-        const a = document.createElement("a");
-        a.href = url;
-        a.target = "_blank";
-        a.download = filename;
-        a.click();
+        try {
+            const res = await fetch(url);
+            const blob = await res.blob();
+            const blobURL = URL.createObjectURL(blob);
+
+            const a = document.createElement("a");
+            a.href = blobURL;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+
+            URL.revokeObjectURL(blobURL);
+            document.body.removeChild(loadingOverlay);
+        } catch (directError) {
+            console.error("All download methods failed:", directError);
+            document.body.removeChild(loadingOverlay);
+            
+            // Final fallback: open in new tab
+            const a = document.createElement("a");
+            a.href = url;
+            a.target = "_blank";
+            a.click();
+        }
     }
 }
 
