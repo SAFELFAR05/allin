@@ -176,7 +176,7 @@
 
     function addMessage(text, sender) {
         const msg = document.createElement('div');
-        msg.className = \`ai-message \${sender}\`;
+        msg.className = `ai-message ${sender}`;
         msg.textContent = text;
         aiMessages.appendChild(msg);
         aiMessages.scrollTop = aiMessages.scrollHeight;
@@ -193,7 +193,7 @@
         aiTyping.style.display = 'block';
 
         try {
-            const response = await fetch(\`https://aioo.elfar.my.id/api/proxy?prompt=\${encodeURIComponent(text)}&logic=kamu adalah AI asisten untuk website AIODownloader. Website ini adalah layanan download video gratis dari berbagai platform seperti TikTok, Instagram, Facebook, dan lainnya.\`);
+            const response = await fetch(`https://aioo.elfar.my.id/api/proxy?prompt=${encodeURIComponent(text)}&logic=kamu adalah AI asisten untuk website AIODownloader. Website ini adalah layanan download video gratis dari berbagai platform seperti TikTok, Instagram, Facebook, dan lainnya.`);
             const data = await response.json();
             
             aiTyping.style.display = 'none';
