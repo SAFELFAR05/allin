@@ -72,6 +72,33 @@ async function fetchVideoData(url) {
     }
 }
 
+async function forceDownloadBlob(url, filename = "download.mp4") {
+    try {
+        const loadingOverlay = document.createElement('div');
+        loadingOverlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);display:flex;align-items:center;justify-content:center;z-index:10000;color:white;flex-direction:column;gap:15px;';
+        loadingOverlay.innerHTML = '<div class="spinner-ring" style="width:50px;height:50px;border:5px solid #22c55e;border-top-color:transparent;border-radius:50%;animation:spin 1s linear infinite;"></div><span>Downloading to device...</span>';
+        document.body.appendChild(loadingOverlay);
+
+        const res = await fetch(url);
+        const blob = await res.blob();
+        const blobURL = URL.createObjectURL(blob);
+
+        const a = document.createElement("a");
+        a.href = blobURL;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+
+        URL.revokeObjectURL(blobURL);
+        document.body.removeChild(loadingOverlay);
+    } catch (error) {
+        console.error("Download failed:", error);
+        alert("Download failed. Opening in new tab instead.");
+        window.open(url, '_blank');
+    }
+}
+
 function displayResults(data) {
     loadingState.style.display = 'none';
     errorState.style.display = 'none';
@@ -163,6 +190,10 @@ function displayResults(data) {
 
     downloadLinks.forEach((link, index) => {
         const icon = getMediaIcon(link.extension);
+        const safeUrl = escapeAttr(link.url);
+        const safeTitle = escapeAttr(title || "download");
+        const safeExt = escapeAttr(link.extension || "mp4");
+        
         const html = `
             <div class="download-link-item">
                 <div class="link-info">
@@ -175,21 +206,21 @@ function displayResults(data) {
                     </div>
                 </div>
                 <div class="link-actions">
-                    <button class="copy-btn" onclick="copyLink('${escapeAttr(link.url)}', this)">
+                    <button class="copy-btn" onclick="copyLink('${safeUrl}', this)">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
                             <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
                         </svg>
                         Copy
                     </button>
-                    <a href="${escapeAttr(link.url)}" class="download-link-btn" download>
+                    <button class="download-link-btn" onclick="forceDownloadBlob('${safeUrl}', '${safeTitle}.${safeExt}')">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
                             <polyline points="7 10 12 15 17 10"></polyline>
                             <line x1="12" y1="15" x2="12" y2="3"></line>
                         </svg>
                         Download
-                    </a>
+                    </button>
                 </div>
             </div>
         `;
