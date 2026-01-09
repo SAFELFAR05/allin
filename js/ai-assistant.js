@@ -240,11 +240,34 @@
             let nodeIndex = 0;
             function typeNode() {
                 if (nodeIndex < nodes.length) {
-                    const node = nodes[nodeIndex].cloneNode(true);
-                    msg.appendChild(node);
-                    nodeIndex++;
-                    aiMessages.scrollTop = aiMessages.scrollHeight;
-                    setTimeout(typeNode, 30);
+                    const node = nodes[nodeIndex];
+                    
+                    if (node.nodeType === Node.TEXT_NODE) {
+                        const textContent = node.textContent;
+                        const textSpan = document.createElement('span');
+                        msg.appendChild(textSpan);
+                        
+                        let charIndex = 0;
+                        function typeChar() {
+                            if (charIndex < textContent.length) {
+                                textSpan.textContent += textContent[charIndex];
+                                charIndex++;
+                                aiMessages.scrollTop = aiMessages.scrollHeight;
+                                setTimeout(typeChar, 20);
+                            } else {
+                                nodeIndex++;
+                                typeNode();
+                            }
+                        }
+                        typeChar();
+                    } else {
+                        // For element nodes (like <strong> or <br>), just append and move on
+                        const clone = node.cloneNode(true);
+                        msg.appendChild(clone);
+                        nodeIndex++;
+                        aiMessages.scrollTop = aiMessages.scrollHeight;
+                        setTimeout(typeNode, 20);
+                    }
                 }
             }
             typeNode();
