@@ -28,8 +28,7 @@ async function fetchVideoData(url) {
         noUrlState.style.display = 'none';
         resultsState.style.display = 'none';
 
-        const apiKey = "key-elfs";
-        const apiUrl = `https://api.ferdev.my.id/downloader/allinone?link=${encodeURIComponent(url)}&apikey=${apiKey}`;
+        const apiUrl = `https://aioo.elfar.my.id/api/resolve?link=${encodeURIComponent(url)}`;
 
         const response = await fetch(apiUrl);
 
@@ -38,13 +37,12 @@ async function fetchVideoData(url) {
         }
 
         const data = await response.json();
-        const result = data.data || data.result || data;
-
-        if (!result) {
-            throw new Error("No data found for this link.");
+        
+        if (!data.success || !data.data) {
+            throw new Error(data.message || "No data found for this link.");
         }
 
-        displayResults(result);
+        displayResults(data.data);
     } catch (error) {
         showError(error.message);
     }
