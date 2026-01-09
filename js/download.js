@@ -73,23 +73,12 @@ async function fetchVideoData(url) {
 }
 
 async function forceDownloadBlob(url, filename = "download.mp4") {
-    const loadingOverlay = document.createElement('div');
-    loadingOverlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);display:flex;align-items:center;justify-content:center;z-index:10000;color:white;flex-direction:column;gap:15px;';
-    loadingOverlay.innerHTML = '<div class="spinner-ring" style="width:50px;height:50px;border:5px solid #22c55e;border-top-color:transparent;border-radius:50%;animation:spin 1s linear infinite;"></div><span>Downloading to device...</span>';
-    document.body.appendChild(loadingOverlay);
-
     try {
-        // Use a more reliable CORS proxy
-        const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`;
-        
-        const response = await fetch(proxyUrl);
-        if (!response.ok) throw new Error('Network response was not ok');
-        
-        const blob = await response.blob();
-        const blobUrl = window.URL.createObjectURL(blob);
+        // Use a more reliable download redirect for streaming links
+        const downloadUrl = `https://aiol.elfar.my.id/?url=${encodeURIComponent(url)}`;
         
         const link = document.createElement('a');
-        link.href = blobUrl;
+        link.href = downloadUrl;
         link.download = filename;
         document.body.appendChild(link);
         link.click();
@@ -97,14 +86,11 @@ async function forceDownloadBlob(url, filename = "download.mp4") {
         // Cleanup
         setTimeout(() => {
             document.body.removeChild(link);
-            window.URL.revokeObjectURL(blobUrl);
-            document.body.removeChild(loadingOverlay);
         }, 100);
     } catch (error) {
         console.error('Download error:', error);
-        document.body.removeChild(loadingOverlay);
         
-        // If blob fails, try to use a service like 'savefrom' style redirect or just the link
+        // If redirect fails, try to use a service like 'savefrom' style redirect or just the link
         const a = document.createElement("a");
         a.href = url;
         a.target = "_blank";
