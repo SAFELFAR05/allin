@@ -14,6 +14,12 @@ const errorMessage = document.getElementById('errorMessage');
 const retryBtn = document.getElementById('retryBtn');
 const downloadAnotherBtn = document.getElementById('downloadAnotherBtn');
 
+if (downloadAnotherBtn) {
+    downloadAnotherBtn.addEventListener('click', () => {
+        window.location.href = 'index.html';
+    });
+}
+
 // Show appropriate state based on URL
 if (!videoUrl) {
     showNoUrlState();
