@@ -79,51 +79,37 @@ async function forceDownloadBlob(url, filename = "download.mp4") {
     document.body.appendChild(loadingOverlay);
 
     try {
-        // Try to use a CORS proxy to bypass restrictions
+        // Use a more reliable CORS proxy
         const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`;
         
-        const res = await fetch(proxyUrl);
-        if (!res.ok) throw new Error('Proxy fetch failed');
-
-        const blob = await res.blob();
-        const blobURL = URL.createObjectURL(blob);
-
-        const a = document.createElement("a");
-        a.href = blobURL;
-        a.download = filename;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-
-        URL.revokeObjectURL(blobURL);
-        document.body.removeChild(loadingOverlay);
-    } catch (error) {
-        console.warn("Proxy download failed, trying direct fetch:", error);
+        const response = await fetch(proxyUrl);
+        if (!response.ok) throw new Error('Network response was not ok');
         
-        try {
-            const res = await fetch(url);
-            const blob = await res.blob();
-            const blobURL = URL.createObjectURL(blob);
-
-            const a = document.createElement("a");
-            a.href = blobURL;
-            a.download = filename;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-
-            URL.revokeObjectURL(blobURL);
+        const blob = await response.blob();
+        const blobUrl = window.URL.createObjectURL(blob);
+        
+        const link = document.createElement('a');
+        link.href = blobUrl;
+        link.download = filename;
+        document.body.appendChild(link);
+        link.click();
+        
+        // Cleanup
+        setTimeout(() => {
+            document.body.removeChild(link);
+            window.URL.revokeObjectURL(blobUrl);
             document.body.removeChild(loadingOverlay);
-        } catch (directError) {
-            console.error("All download methods failed:", directError);
-            document.body.removeChild(loadingOverlay);
-            
-            // Final fallback: open in new tab
-            const a = document.createElement("a");
-            a.href = url;
-            a.target = "_blank";
-            a.click();
-        }
+        }, 100);
+    } catch (error) {
+        console.error('Download error:', error);
+        document.body.removeChild(loadingOverlay);
+        
+        // If blob fails, try to use a service like 'savefrom' style redirect or just the link
+        const a = document.createElement("a");
+        a.href = url;
+        a.target = "_blank";
+        a.download = filename;
+        a.click();
     }
 }
 
