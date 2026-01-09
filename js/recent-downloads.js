@@ -64,6 +64,14 @@
             color: white;
             font-family: 'Space Grotesk', sans-serif;
         }
+        .recent-delete-all {
+            cursor: pointer;
+            color: #94a3b8;
+            transition: color 0.2s;
+        }
+        .recent-delete-all:hover {
+            color: #f87171;
+        }
         .recent-list {
             flex: 1;
             padding: 10px;
@@ -123,6 +131,9 @@
         <div class="recent-window" id="recentWindow">
             <div class="recent-header">
                 <h4>Recent Downloads</h4>
+                <div class="recent-delete-all" id="recentDeleteBtn" title="Hapus Semua">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                </div>
             </div>
             <div class="recent-list" id="recentList">
                 <div class="no-recent">No recent downloads yet</div>
@@ -140,8 +151,15 @@
     const toggleBtn = document.getElementById('recentToggleBtn');
     const windowEl = document.getElementById('recentWindow');
     const listEl = document.getElementById('recentList');
+    const deleteBtn = document.getElementById('recentDeleteBtn');
 
     toggleBtn.onclick = () => windowEl.classList.toggle('show');
+    deleteBtn.onclick = () => {
+        if (confirm('Hapus semua riwayat download?')) {
+            localStorage.removeItem('recent_downloads');
+            updateRecentList();
+        }
+    };
 
     function updateRecentList() {
         const recent = JSON.parse(localStorage.getItem('recent_downloads') || '[]');

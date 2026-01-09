@@ -58,6 +58,19 @@
             align-items: center;
             justify-content: space-between;
         }
+        .ai-header-actions {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        .ai-action-btn {
+            cursor: pointer;
+            color: #94a3b8;
+            transition: color 0.2s;
+        }
+        .ai-action-btn:hover {
+            color: #f87171;
+        }
         .ai-chat-header h3 {
             margin: 0;
             font-size: 16px;
@@ -139,8 +152,13 @@
         <div class="ai-chat-window" id="aiChatWindow">
             <div class="ai-chat-header">
                 <h3>AI Assistant</h3>
-                <div class="ai-close-btn" id="aiCloseBtn">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                <div class="ai-header-actions">
+                    <div class="ai-action-btn" id="aiDeleteBtn" title="Hapus Chat">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                    </div>
+                    <div class="ai-close-btn ai-action-btn" id="aiCloseBtn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                    </div>
                 </div>
             </div>
             <div class="ai-chat-messages" id="aiMessages">
@@ -167,10 +185,19 @@
     const toggleBtn = document.getElementById('aiToggleBtn');
     const chatWindow = document.getElementById('aiChatWindow');
     const closeBtn = document.getElementById('aiCloseBtn');
+    const deleteBtn = document.getElementById('aiDeleteBtn');
     const aiForm = document.getElementById('aiForm');
     const aiInput = document.getElementById('aiInput');
     const aiMessages = document.getElementById('aiMessages');
     const aiTyping = document.getElementById('aiTyping');
+
+    function formatMessage(text) {
+        // Simple Markdown-like formatting for bold (*** or **) and newlines
+        return text
+            .replace(/\*\*\*(.*?)\*\*\*/g, '<strong>$1</strong>')
+            .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+            .replace(/\n/g, '<br>');
+    }
 
     // Load cached messages
     const cachedMessages = JSON.parse(localStorage.getItem('ai_messages') || '[]');
@@ -179,7 +206,7 @@
         cachedMessages.forEach(msg => {
             const msgEl = document.createElement('div');
             msgEl.className = `ai-message ${msg.sender}`;
-            msgEl.textContent = msg.text;
+            msgEl.innerHTML = formatMessage(msg.text);
             aiMessages.appendChild(msgEl);
         });
         aiMessages.scrollTop = aiMessages.scrollHeight;
@@ -187,11 +214,17 @@
 
     toggleBtn.onclick = () => chatWindow.classList.toggle('show');
     closeBtn.onclick = () => chatWindow.classList.remove('show');
+    deleteBtn.onclick = () => {
+        if (confirm('Hapus semua riwayat chat?')) {
+            localStorage.removeItem('ai_messages');
+            aiMessages.innerHTML = '<div class="ai-message bot">Halo! Saya AI asisten AIODownloader. Ada yang bisa saya bantu?</div>';
+        }
+    };
 
     function addMessage(text, sender) {
         const msg = document.createElement('div');
         msg.className = `ai-message ${sender}`;
-        msg.textContent = text;
+        msg.innerHTML = formatMessage(text);
         aiMessages.appendChild(msg);
         aiMessages.scrollTop = aiMessages.scrollHeight;
 
