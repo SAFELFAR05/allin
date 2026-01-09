@@ -108,6 +108,25 @@
             color: #e2e8f0;
             border-bottom-left-radius: 2px;
         }
+        .ai-typing-dots {
+            display: inline-flex;
+            gap: 4px;
+            padding: 4px 8px;
+            align-items: center;
+        }
+        .ai-dot {
+            width: 4px;
+            height: 4px;
+            background: #94a3b8;
+            border-radius: 50%;
+            animation: aiBounce 1.4s infinite ease-in-out both;
+        }
+        .ai-dot:nth-child(1) { animation-delay: -0.32s; }
+        .ai-dot:nth-child(2) { animation-delay: -0.16s; }
+        @keyframes aiBounce {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1.0); }
+        }
         .ai-chat-input {
             padding: 15px;
             background: rgba(0,0,0,0.2);
@@ -226,51 +245,51 @@
         msg.className = `ai-message ${sender}`;
         
         if (sender === 'bot') {
-            msg.innerHTML = '';
+            msg.innerHTML = '<div class="ai-typing-dots"><div class="ai-dot"></div><div class="ai-dot"></div><div class="ai-dot"></div></div>';
             aiMessages.appendChild(msg);
+            aiMessages.scrollTop = aiMessages.scrollHeight;
             
-            let i = 0;
-            const formatted = formatMessage(text);
-            // We need to type the raw text but show formatted
-            // Simplified typing effect: reveal chunks of the formatted HTML
-            const tempDiv = document.createElement('div');
-            tempDiv.innerHTML = formatted;
-            const nodes = Array.from(tempDiv.childNodes);
-            
-            let nodeIndex = 0;
-            function typeNode() {
-                if (nodeIndex < nodes.length) {
-                    const node = nodes[nodeIndex];
-                    
-                    if (node.nodeType === Node.TEXT_NODE) {
-                        const textContent = node.textContent;
-                        const textSpan = document.createElement('span');
-                        msg.appendChild(textSpan);
+            // Artificial delay to simulate thinking before typing
+            setTimeout(() => {
+                msg.innerHTML = '';
+                const tempDiv = document.createElement('div');
+                tempDiv.innerHTML = formatMessage(text);
+                const nodes = Array.from(tempDiv.childNodes);
+                
+                let nodeIndex = 0;
+                function typeNode() {
+                    if (nodeIndex < nodes.length) {
+                        const node = nodes[nodeIndex];
                         
-                        let charIndex = 0;
-                        function typeChar() {
-                            if (charIndex < textContent.length) {
-                                textSpan.textContent += textContent[charIndex];
-                                charIndex++;
-                                aiMessages.scrollTop = aiMessages.scrollHeight;
-                                setTimeout(typeChar, 20);
-                            } else {
-                                nodeIndex++;
-                                typeNode();
+                        if (node.nodeType === Node.TEXT_NODE) {
+                            const textContent = node.textContent;
+                            const textSpan = document.createElement('span');
+                            msg.appendChild(textSpan);
+                            
+                            let charIndex = 0;
+                            function typeChar() {
+                                if (charIndex < textContent.length) {
+                                    textSpan.textContent += textContent[charIndex];
+                                    charIndex++;
+                                    aiMessages.scrollTop = aiMessages.scrollHeight;
+                                    setTimeout(typeChar, 20);
+                                } else {
+                                    nodeIndex++;
+                                    typeNode();
+                                }
                             }
+                            typeChar();
+                        } else {
+                            const clone = node.cloneNode(true);
+                            msg.appendChild(clone);
+                            nodeIndex++;
+                            aiMessages.scrollTop = aiMessages.scrollHeight;
+                            setTimeout(typeNode, 20);
                         }
-                        typeChar();
-                    } else {
-                        // For element nodes (like <strong> or <br>), just append and move on
-                        const clone = node.cloneNode(true);
-                        msg.appendChild(clone);
-                        nodeIndex++;
-                        aiMessages.scrollTop = aiMessages.scrollHeight;
-                        setTimeout(typeNode, 20);
                     }
                 }
-            }
-            typeNode();
+                typeNode();
+            }, 600);
         } else {
             msg.innerHTML = formatMessage(text);
             aiMessages.appendChild(msg);
