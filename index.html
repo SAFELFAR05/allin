@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIO Downloader - Download Videos from TikTok, IG, YouTube & More</title>
+    <meta name="description" content="The best free All-in-One Video Downloader. Download high-quality videos from TikTok, Instagram, YouTube, Facebook, and Twitter without watermarks. Fast, free, and easy.">
+    
+    <meta property="og:title" content="AIO Downloader - Modern Video Downloader">
+    <meta property="og:description" content="Download videos from TikTok, Instagram, YouTube, and more without watermarks. Free and fast.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="/background.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="AIO Downloader">
+    <meta name="twitter:description" content="Download videos from social media easily.">
+    <meta name="twitter:site" content="@replit">
+    
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=Inter:wght@300..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <header class="navbar">
+        <div class="container navbar-content">
+            <div class="navbar-brand" onclick="window.location.reload()">
+                <div class="logo-box">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="7 10 12 15 17 10"></polyline>
+                        <line x1="12" y1="15" x2="12" y2="3"></line>
+                    </svg>
+                </div>
+                <span class="brand-text">AIODownloader</span>
+            </div>
+            <div class="language-switcher">
+                <button class="lang-btn">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                    </svg>
+                    <span>EN</span>
+                </button>
+                <div class="lang-dropdown">
+                    <a href="index.html">English</a>
+                    <a href="index-id.html">Bahasa Indonesia</a>
+                </div>
+            </div>
+            <nav class="navbar-nav">
+                <a href="#features">Features</a>
+                <a href="#supported">Supported Sites</a>
+                <a href="#faq">FAQ</a>
+                <a href="contact.html">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-background">
+                <img src="background.png" alt="Background" class="bg-image">
+            </div>
+            <div class="hero-overlay"></div>
+
+            <div class="container hero-content">
+                <div class="hero-text" style="animation: fadeInUp 0.6s ease-out">
+                    <h1 class="hero-title">
+                        Download Videos from <br>
+                        <span class="gradient-text">Any Platform</span>
+                    </h1>
+                    <p class="hero-description">
+                        The ultimate all-in-one video downloader. Save videos from TikTok, Instagram, Facebook, YouTube, Twitter, and more in high quality without watermarks.
+                    </p>
+                </div>
+
+                <!-- AD SPACE -->
+                <div class="ad-space" style="animation: fadeInUp 0.6s ease-out 0.2s both">
+                    ADVERTISEMENT SPACE (HOME TOP)
+                </div>
+
+                <!-- Download Form -->
+                <div class="form-wrapper" style="animation: fadeInUp 0.6s ease-out 0.4s both">
+                    <form id="downloadForm" class="download-form">
+                        <div class="form-group">
+                            <div class="form-input-wrapper">
+                                <svg class="form-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                                    <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+                                </svg>
+                                <input 
+                                    type="text" 
+                                    id="urlInput" 
+                                    placeholder="Paste video URL here (TikTok, IG, YouTube...)" 
+                                    class="form-input" 
+                                    required
+                                >
+                                <span class="error-message" id="errorMessage"></span>
+                            </div>
+                            <button type="submit" class="download-btn" id="submitBtn">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                    <polyline points="7 10 12 15 17 10"></polyline>
+                                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                                </svg>
+                                <span>Download</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Supported Platforms -->
+        <section id="supported" class="section platforms-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Supported Platforms</h2>
+                    <p>We support downloading from 50+ major social media platforms.</p>
+                </div>
+
+                <!-- AD SPACE -->
+                <div class="ad-space ad-space-large">
+                    ADVERTISEMENT SPACE (HOME MIDDLE)
+                </div>
+
+                <div class="platforms-grid">
+                    <div class="platform-card brand-tiktok">
+                        <img class="platform-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/tiktok.svg" alt="TikTok" loading="lazy">
+                        <span>TikTok</span>
+                    </div>
+                    <div class="platform-card brand-douyin">
+                        <img class="platform-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/tiktok.svg" alt="Douyin" loading="lazy">
+                        <span>Douyin</span>
+                    </div>
+                    <div class="platform-card brand-capcut">
+                        <img class="platform-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/capcut.svg" alt="Capcut" loading="lazy">
+                        <span>Capcut</span>
+                    </div>
+                    <div class="platform-card brand-threads">
+                        <img class="platform-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/threads.svg" alt="Threads" loading="lazy">
+                        <span>Threads</span>
+                    </div>
+                    <div class="platform-card brand-instagram">
+                        <img class="platform-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/instagram.svg" alt="Instagram" loading="lazy">
+                        <span>Instagram</span>
+                    </div>
+                    <div class="platform-card brand-facebook">
+                        <img class="platform-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/facebook.svg" alt="Facebook" loading="lazy">
+                        <span>Facebook</span>
+                    </div>
+                    <div class="platform-card brand-espn">
+                        <img class="platform-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/espn.svg" alt="ESPN" loading="lazy">
+                        <span>ESPN</span>
+                    </div>
+                    <div class="platform-card brand-pinterest">
+                        <img class="platform-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/pinterest.svg" alt="Pinterest" loading="lazy">
+                        <span>Pinterest</span>
+                    </div>
+                    <div class="platform-card brand-imdb">
+                        <img class="platform-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/imdb.svg" alt="IMDb" loading="lazy">
+                        <span>IMDb</span>
+                    </div>
+                    <div class="platform-card brand-imgur">
+                        <img class="platform-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/imgur.svg" alt="Imgur" loading="lazy">
+                        <span>Imgur</span>
+                    </div>
+                    <div class="platform-card brand-ifunny">
+                        <img class="platform-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/ifunny.svg" alt="iFunny" loading="lazy">
+                        <span>iFunny</span>
+                    </div>
+                    <div class="platform-card brand-izlesene">
+                        <img class="platform-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/izlesene.svg" alt="Izlesene" loading="lazy">
+                        <span>Izlesene</span>
+                    </div>
+                    <div class="platform-card brand-reddit">
+                        <img class="platform-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/reddit.svg" alt="Reddit" loading="lazy">
+                        <span>Reddit</span>
+                    </div>
+                    <div class="platform-card brand-youtube">
+                        <img class="platform-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/youtube.svg" alt="YouTube" loading="lazy">
+                        <span>YouTube</span>
+                    </div>
+                    <div class="platform-card brand-twitter">
+                        <img class="platform-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/x.svg" alt="Twitter / X" loading="lazy">
+                        <span>Twitter / X</span>
+                    </div>
+                    <div class="platform-card brand-vimeo">
+                        <img class="platform-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/vimeo.svg" alt="Vimeo" loading="lazy">
+                        <span>Vimeo</span>
+                    </div>
+                    <div class="platform-card brand-snapchat">
+                        <img class="platform-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/snapchat.svg" alt="Snapchat" loading="lazy">
+                        <span>Snapchat</span>
+                    </div>
+                    <div class="platform-card brand-bilibili">
+                        <img class="platform-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/bilibili.svg" alt="Bilibili" loading="lazy">
+                        <span>Bilibili</span>
+                    </div>
+                    <div class="platform-card brand-dailymotion">
+                        <img class="platform-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/dailymotion.svg" alt="Dailymotion" loading="lazy">
+                        <span>Dailymotion</span>
+                    </div>
+                    <div class="platform-card brand-sharechat">
+                        <img class="platform-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/sharechat.svg" alt="Sharechat" loading="lazy">
+                        <span>Sharechat</span>
+                    </div>
+                    <div class="platform-card brand-likee">
+                        <img class="platform-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/likee.svg" alt="Likee" loading="lazy">
+                        <span>Likee</span>
+                    </div>
+                    <div class="platform-card brand-linkedin">
+                        <img class="platform-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/linkedin.svg" alt="LinkedIn" loading="lazy">
+                        <span>LinkedIn</span>
+                    </div>
+                    <div class="platform-card brand-tumblr">
+                        <img class="platform-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/tumblr.svg" alt="Tumblr" loading="lazy">
+                        <span>Tumblr</span>
+                    </div>
+                    <div class="platform-card brand-hipi">
+                        <img class="platform-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/hipi.svg" alt="Hipi" loading="lazy">
+                        <span>Hipi</span>
+                    </div>
+                    <div class="platform-card brand-telegram">
+                        <img class="platform-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/telegram.svg" alt="Telegram" loading="lazy">
+                        <span>Telegram</span>
+                    </div>
+                    <div class="platform-card brand-getpackages">
+                        <img class="platform-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/getpackages.svg" alt="GetStickerPack" loading="lazy">
+                        <span>GetStickerPack</span>
+                    </div>
+                    <div class="platform-card brand-bitchute">
+                        <img class="platform-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/bitchute.svg" alt="Bitchute" loading="lazy">
+                        <span>Bitchute</span>
+                    </div>
+                    <div class="platform-card brand-febspot">
+                        <img class="platform-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/febspot.svg" alt="Febspot" loading="lazy">
+                        <span>Febspot</span>
+                    </div>
+                    <div class="platform-card brand-9gag">
+                        <img class="platform-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/9gag.svg" alt="9GAG" loading="lazy">
+                        <span>9GAG</span>
+                    </div>
+                    <div class="platform-card brand-ok">
+                        <img class="platform-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/ok.svg" alt="OK.ru" loading="lazy">
+                        <span>OK.ru</span>
+                    </div>
+                    <div class="platform-card brand-rumble">
+                        <img class="platform-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/rumble.svg" alt="Rumble" loading="lazy">
+                        <span>Rumble</span>
+                    </div>
+                    <div class="platform-card brand-streamable">
+                        <img class="platform-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/streamable.svg" alt="Streamable" loading="lazy">
+                        <span>Streamable</span>
+                    </div>
+                    <div class="platform-card brand-ted">
+                        <img class="platform-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/ted.svg" alt="TED" loading="lazy">
+                        <span>TED</span>
+                    </div>
+                    <div class="platform-card brand-sohu">
+                        <img class="platform-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/sohu.svg" alt="SohuTV" loading="lazy">
+                        <span>SohuTV</span>
+                    </div>
+                    <div class="platform-card brand-xvideos">
+                        <img class="platform-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/xvideos.svg" alt="XVideos" loading="lazy">
+                        <span>XVideos</span>
+                    </div>
+                    <div class="platform-card brand-xnxx">
+                        <img class="platform-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/xnxx.svg" alt="XNXX" loading="lazy">
+                        <span>XNXX</span>
+                    </div>
+                    <div class="platform-card brand-xiaohongshu">
+                        <img class="platform-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/xiaohongshu.svg" alt="Xiaohongshu" loading="lazy">
+                        <span>Xiaohongshu</span>
+                    </div>
+                    <div class="platform-card brand-ixigua">
+                        <img class="platform-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/ixigua.svg" alt="Ixigua" loading="lazy">
+                        <span>Ixigua</span>
+                    </div>
+                    <div class="platform-card brand-weibo">
+                        <img class="platform-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/weibo.svg" alt="Weibo" loading="lazy">
+                        <span>Weibo</span>
+                    </div>
+                    <div class="platform-card brand-miaopai">
+                        <img class="platform-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/miaopai.svg" alt="Miaopai" loading="lazy">
+                        <span>Miaopai</span>
+                    </div>
+                    <div class="platform-card brand-meipai">
+                        <img class="platform-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/meipai.svg" alt="Meipai" loading="lazy">
+                        <span>Meipai</span>
+                    </div>
+                    <div class="platform-card brand-xiaoying">
+                        <img class="platform-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/xiaoying.svg" alt="Xiaoying" loading="lazy">
+                        <span>Xiaoying</span>
+                    </div>
+                    <div class="platform-card brand-nationalvideo">
+                        <img class="platform-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/nationalvideo.svg" alt="National Video" loading="lazy">
+                        <span>National Video</span>
+                    </div>
+                    <div class="platform-card brand-yingke">
+                        <img class="platform-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/yingke.svg" alt="Yingke" loading="lazy">
+                        <span>Yingke</span>
+                    </div>
+                    <div class="platform-card brand-sina">
+                        <img class="platform-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/sina.svg" alt="Sina" loading="lazy">
+                        <span>Sina</span>
+                    </div>
+                    <div class="platform-card brand-vk">
+                        <img class="platform-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/vk.svg" alt="VK Video" loading="lazy">
+                        <span>VK Video</span>
+                    </div>
+                    <div class="platform-card brand-soundcloud">
+                        <img class="platform-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/soundcloud.svg" alt="SoundCloud" loading="lazy">
+                        <span>SoundCloud</span>
+                    </div>
+                    <div class="platform-card brand-mixcloud">
+                        <img class="platform-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/mixcloud.svg" alt="Mixcloud" loading="lazy">
+                        <span>Mixcloud</span>
+                    </div>
+                    <div class="platform-card brand-spotify">
+                        <img class="platform-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/spotify.svg" alt="Spotify" loading="lazy">
+                        <span>Spotify</span>
+                    </div>
+                    <div class="platform-card brand-zingmp3">
+                        <img class="platform-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/zingmp3.svg" alt="ZingMP3" loading="lazy">
+                        <span>ZingMP3</span>
+                    </div>
+                    <div class="platform-card brand-bandcamp">
+                        <img class="platform-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/bandcamp.svg" alt="Bandcamp" loading="lazy">
+                        <span>Bandcamp</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features -->
+        <section id="features" class="section features-section">
+            <div class="container">
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: #facc15;">
+                                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path>
+                            </svg>
+                        </div>
+                        <h3>Lightning Fast</h3>
+                        <p>Our advanced servers process your request instantly. Get your download links in seconds, no matter the file size or platform.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: #4ade80;">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                            </svg>
+                        </div>
+                        <h3>Secure & Safe</h3>
+                        <p>We don't store any of your downloaded files or personal data. Your privacy is our top priority. No registration required.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: #60a5fa;">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="12" y1="8" x2="12" y2="16"></line>
+                                <line x1="8" y1="12" x2="16" y2="12"></line>
+                            </svg>
+                        </div>
+                        <h3>Universal Support</h3>
+                        <p>One tool for everything. Whether it's a TikTok video without watermark or a YouTube MP3, we handle it all seamlessly.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ -->
+        <section id="faq" class="section faq-section">
+            <div class="container">
+                <h2 class="section-title">Frequently Asked Questions</h2>
+                
+                <div class="faq-list">
+                    <div class="faq-item">
+                        <h3 class="faq-question">Is this downloader free?</h3>
+                        <p class="faq-answer">Yes, AIODownloader is 100% free to use. You can download as many videos as you like without any hidden costs.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3 class="faq-question">How to download videos from TikTok without watermark?</h3>
+                        <p class="faq-answer">Simply paste the TikTok video link into the input box above and click Download. Our system automatically detects and provides a watermark-free version.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3 class="faq-question">Does it work on mobile?</h3>
+                        <p class="faq-answer">Absolutely! Our website is fully responsive and works perfectly on iPhone, Android, tablets, and desktop computers.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3 class="faq-question">Where are files saved?</h3>
+                        <p class="faq-answer">Files are saved to your device's default download folder. On mobile, you can find them in your Gallery or Files app.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- AD SPACE BOTTOM -->
+        <div class="container">
+            <div class="ad-space ad-space-large" style="margin-bottom: 60px;">
+                ADVERTISEMENT SPACE (HOME BOTTOM)
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <div class="footer-brand">
+                        <div class="footer-logo">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="7 10 12 15 17 10"></polyline>
+                                <line x1="12" y1="15" x2="12" y2="3"></line>
+                            </svg>
+                        </div>
+                        <span>AIODownloader</span>
+                    </div>
+                    <p class="footer-desc">The best online video downloader for all your social media needs. Fast, free, and secure.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#top">Home</a></li>
+                        <li><a href="#supported">Supported Sites</a></li>
+                        <li><a href="#faq">FAQ</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="terms.html">Terms of Service</a></li>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Connect</h4>
+                    <ul>
+                        <li><a href="contact.html">Contact Support</a></li>
+                        <li><a href="#">Twitter / X</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; <span id="year"></span> AIODownloader. All rights reserved.</p>
+                <p class="footer-disclaimer">Disclaimer: We are not affiliated with any of the social media platforms supported on this site.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

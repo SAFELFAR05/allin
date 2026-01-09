@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download Results - AIO Downloader</title>
+    <meta name="description" content="Download video results from AIO Downloader">
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=Inter:wght@300..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/download.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <header class="navbar">
+        <div class="container navbar-content">
+            <a href="index.html" class="navbar-brand">
+                <div class="logo-box">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="7 10 12 15 17 10"></polyline>
+                        <line x1="12" y1="15" x2="12" y2="3"></line>
+                    </svg>
+                </div>
+                <span class="brand-text">AIODownloader</span>
+            </a>
+            <button id="downloadAnotherBtn" class="back-btn" style="display: none;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="19" y1="12" x2="5" y2="12"></line>
+                    <polyline points="12 19 5 12 12 5"></polyline>
+                </svg>
+                Download Another
+            </button>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <!-- Background -->
+        <div class="download-background">
+            <img src="/attached_assets/generated_images/dark_abstract_cybernetic_background_with_glowing_lines.png" alt="Background" class="bg-image">
+        </div>
+        <div class="download-overlay"></div>
+
+        <div class="container download-container">
+            <!-- AD SPACE TOP -->
+            <div class="ad-space ad-space-large" style="margin-bottom: 32px;">
+                ADVERTISEMENT SPACE (TOP)
+            </div>
+
+            <!-- Loading State -->
+            <div id="loadingState" class="state-container">
+                <div class="spinner">
+                    <div class="spinner-ring"></div>
+                    <div class="spinner-dot"></div>
+                </div>
+                <div class="state-text">
+                    <h2>Processing Video...</h2>
+                    <p>Please wait while we fetch the highest quality for you.</p>
+                </div>
+            </div>
+
+            <!-- Error State -->
+            <div id="errorState" class="state-container" style="display: none;">
+                <div class="error-card">
+                    <div class="error-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" y1="8" x2="12" y2="12"></line>
+                            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                        </svg>
+                    </div>
+                    <div class="error-content">
+                        <h2>Download Failed</h2>
+                        <p id="errorMessage"></p>
+                    </div>
+                    <button id="retryBtn" class="retry-btn">Try Again</button>
+                </div>
+            </div>
+
+            <!-- No URL State -->
+            <div id="noUrlState" class="state-container" style="display: none;">
+                <div class="error-card">
+                    <div class="error-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" y1="8" x2="12" y2="12"></line>
+                            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                        </svg>
+                    </div>
+                    <div class="error-content">
+                        <h2>No URL Provided</h2>
+                        <p>Please go back to the homepage and enter a valid video URL.</p>
+                    </div>
+                    <a href="index.html" class="retry-btn">Go Home</a>
+                </div>
+            </div>
+
+            <!-- Results State -->
+            <div id="resultsState" style="display: none;">
+                <!-- Video Card -->
+                <div id="videoCard" class="video-card" style="display: none;">
+                    <div class="video-content">
+                        <div id="thumbnailSection" class="thumbnail-section" style="display: none;">
+                            <img id="thumbnail" src="" alt="Video thumbnail" class="thumbnail-image">
+                        </div>
+                        <div class="video-info">
+                            <h2 id="videoTitle" class="video-title"></h2>
+                            <div id="videoMeta" class="video-meta"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Download Links -->
+                <div class="download-section">
+                    <h3>Available Downloads</h3>
+                    <div id="downloadLinks" class="download-links"></div>
+                </div>
+
+                <!-- Dynamic Details -->
+                <div id="detailsSection" style="display: none;">
+                    <div class="details-grid" id="dynamicDetails"></div>
+                </div>
+
+                <!-- AD SPACE MIDDLE -->
+                <div class="ad-space ad-space-large" style="margin: 48px auto;">
+                    ADVERTISEMENT SPACE (MIDDLE / NATIVE)
+                </div>
+
+                <!-- Download Another Button -->
+                <div class="text-center" style="margin-top: 48px;">
+                    <a href="index.html" class="download-another-btn">Download Another Video</a>
+                </div>
+            </div>
+
+            <!-- AD SPACE BOTTOM -->
+            <div id="adSpaceBottom" class="ad-space ad-space-large" style="margin-top: 48px; display: none;">
+                ADVERTISEMENT SPACE (BOTTOM)
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; <span id="year"></span> AIODownloader. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/download.js"></script>
+</body>
+</html>

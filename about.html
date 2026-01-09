@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - AIO Downloader</title>
+    <meta name="description" content="Learn about AIO Downloader and our mission to provide the best video downloading service">
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=Inter:wght@300..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/page.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <header class="navbar">
+        <div class="container navbar-content">
+            <a href="index.html" class="navbar-brand">
+                <div class="logo-box">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="7 10 12 15 17 10"></polyline>
+                        <line x1="12" y1="15" x2="12" y2="3"></line>
+                    </svg>
+                </div>
+                <span class="brand-text">AIODownloader</span>
+            </a>
+            <div class="language-switcher">
+                <button class="lang-btn">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                    </svg>
+                    <span>EN</span>
+                </button>
+                <div class="lang-dropdown">
+                    <a href="about.html">English</a>
+                    <a href="about-id.html">Bahasa Indonesia</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="page-main">
+        <div class="container page-container">
+            <div class="page-header">
+                <h1 class="gradient-title">About AIODownloader</h1>
+            </div>
+
+            <div class="page-card">
+                <section class="card-section">
+                    <h2>Our Mission</h2>
+                    <p>AIODownloader was created with a simple mission: to provide the most accessible, fast, and reliable video downloading service on the web. We believe that content should be accessible to everyone, everywhere, without the barriers of complex software, intrusive ads, or expensive subscriptions.</p>
+                </section>
+
+                <section class="card-section">
+                    <h2>How It Works</h2>
+                    <p>Our technology leverages advanced API integrations to process video links from various social media platforms instantly. When you paste a link, our servers communicate with the source platform to retrieve the highest quality video files available, stripping away watermarks where possible, and presenting them to you in a user-friendly format.</p>
+                </section>
+
+                <section class="card-section">
+                    <h2>Why Choose Us?</h2>
+                    <ul class="benefits-list">
+                        <li><strong>Speed:</strong> Our optimized servers ensure near-instant processing times.</li>
+                        <li><strong>Quality:</strong> We always attempt to fetch the highest resolution available (HD, 1080p, 4K).</li>
+                        <li><strong>Privacy:</strong> We do not store your download history or personal files.</li>
+                        <li><strong>Free:</strong> Our service is and will always be 100% free to use.</li>
+                    </ul>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; <span id="year"></span> AIODownloader. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>

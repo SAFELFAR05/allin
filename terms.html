@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms of Service - AIO Downloader</title>
+    <meta name="description" content="Terms of service for AIO Downloader">
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=Inter:wght@300..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/page.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <header class="navbar">
+        <div class="container navbar-content">
+            <a href="index.html" class="navbar-brand">
+                <div class="logo-box">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="7 10 12 15 17 10"></polyline>
+                        <line x1="12" y1="15" x2="12" y2="3"></line>
+                    </svg>
+                </div>
+                <span class="brand-text">AIODownloader</span>
+            </a>
+        </div>
+    </header>
+
+    <main class="page-main">
+        <div class="container page-container">
+            <div class="page-header">
+                <h1>Terms of Service</h1>
+            </div>
+
+            <div class="page-card">
+                <p class="last-updated">Last updated: <span id="lastUpdated"></span></p>
+
+                <section class="card-section">
+                    <h2>1. Acceptance of Terms</h2>
+                    <p>By accessing and using AIODownloader, you agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use our services.</p>
+                </section>
+
+                <section class="card-section">
+                    <h2>2. Use License</h2>
+                    <p>Permission is granted to temporarily download copies of the materials (information or software) on AIODownloader's website for personal, non-commercial transitory viewing only.</p>
+                    <p>You must not use this service to infringe on copyrights. You agree that you will only download content for which you have the right to do so (e.g., your own content, public domain content, or content with creative commons licenses).</p>
+                </section>
+
+                <section class="card-section">
+                    <h2>3. Intellectual Property Rights</h2>
+                    <p>AIODownloader does not host any video content. All videos downloaded through our service are hosted by their respective platforms (TikTok, Instagram, YouTube, etc.). We simply provide a tool to access these publicly available files.</p>
+                </section>
+
+                <section class="card-section">
+                    <h2>4. Disclaimer</h2>
+                    <p>The materials on AIODownloader's website are provided on an 'as is' basis. AIODownloader makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties including, without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights.</p>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; <span id="year"></span> AIODownloader. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+        document.getElementById('lastUpdated').textContent = new Date().toLocaleDateString();
+    </script>
+</body>
+</html>
