@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://aiodownloader.netlify.app/sitemap.xml
+Sitemap: https://allinone.elfar.my.id/sitemap.xml
